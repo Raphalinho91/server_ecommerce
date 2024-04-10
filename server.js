@@ -1,9 +1,12 @@
 const fastify = require("fastify")({ logger: true });
 const oauthPlugin = require("@fastify/oauth2");
+const cors = require("@fastify/cors");
 const secureSession = require("@fastify/secure-session");
 const connectDB = require("./config/database");
 const userRoutes = require("./routes/user");
 const userGoogle = require("./routes/user.google");
+
+fastify.register(cors, { origin: "*" });
 
 fastify.register(secureSession, {
   secret: process.env.SECURE_SESSION,

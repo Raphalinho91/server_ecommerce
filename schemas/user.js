@@ -17,6 +17,15 @@ const UserHeaderSchema = {
   additionalProperties: false,
 };
 
+const UserHeaderResponseSchema = {
+  200: {
+    type: "object",
+    properties: {
+      message: { type: "string" }
+    },
+  },
+};
+
 const UserBodySchema = {
   type: "object",
   properties: {
@@ -176,5 +185,6 @@ module.exports = {
   ResetPasswordBodySchema,
   ResetPasswordResponseSchema,
   deleteUserResponseSchema,
-  UsersResponseSchema
+  UsersResponseSchema,
+  UserHeaderResponseSchema
 };

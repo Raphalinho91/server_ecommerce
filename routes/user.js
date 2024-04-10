@@ -19,6 +19,7 @@ const {
   ResetPasswordResponseSchema,
   deleteUserResponseSchema,
   UsersResponseSchema,
+  UserHeaderResponseSchema
 } = require("../schemas/user");
 
 function userRoutes(fastify, options, done) {
@@ -27,7 +28,7 @@ function userRoutes(fastify, options, done) {
     {
       schema: {
         headers: UserHeaderSchema,
-        response: UserResponseSchema,
+        response: UserHeaderResponseSchema,
       },
     },
     getUserByEmail

@@ -16,13 +16,13 @@ async function getUserByEmail(req, reply) {
     }
     const user = await userService.findUserByEmail(email);
     if (user) {
-      reply.status(404).send({ message: "User found. Connect now." });
+      reply.status(200).send({ message: "Utilisateur existant. Connectez-vous !" });
     } else {
       const simulatedReq = { body: { email: email } };
       await sendVerificationCode(simulatedReq);
       reply
-        .status(404)
-        .send({ message: "User not found. Verification code sent to email." });
+        .status(200)
+        .send({ message: "Utilisateur introuvable. Code de verification envoyé par e-mail !" });
     }
   } catch (error) {
     reply.status(500).send(error);
