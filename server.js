@@ -4,6 +4,7 @@ const secureSession = require("@fastify/secure-session");
 const connectDB = require("./config/database");
 const userRoutes = require("./routes/user");
 const userGoogle = require("./routes/user.google");
+const { productRoutes } = require("./routes/product");
 
 fastify.register(secureSession, {
   secret: process.env.SECURE_SESSION,
@@ -29,6 +30,7 @@ fastify.register(oauthPlugin, {
 
 fastify.register(userGoogle);
 fastify.register(userRoutes);
+fastify.register(productRoutes);
 
 const start = async () => {
   try {
