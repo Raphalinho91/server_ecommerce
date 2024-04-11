@@ -1,3 +1,4 @@
+
 const productBodySchema = {
     type: 'object',
     properties: {
@@ -6,10 +7,11 @@ const productBodySchema = {
         price: { type: 'number' },
         category: { type: 'string' },
         stock: { type: 'number' },
-        imageUrl: { type: 'string' },
+        fileName: { type: 'string' },
+        filePath: { type: 'string' },
         type: { type: 'string', }
     },
-    required: ['name', 'description', 'price', 'category', 'stock', 'imageUrl']
+    required: ['name', 'description', 'price', 'category', 'stock', 'filePath', 'fileName']
 };
 const updateProductBodySchema = {
     type: 'object',
@@ -19,7 +21,8 @@ const updateProductBodySchema = {
         price: { type: 'number' },
         category: { type: 'string' },
         stock: { type: 'number' },
-        imageUrl: { type: 'string' },
+        fileName: { type: 'string' },
+        filePath: { type: 'string' },
         type: { type: 'string', }
     },
 

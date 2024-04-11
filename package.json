@@ -12,6 +12,9 @@
   "dependencies": {
     "@fastify/oauth2": "^7.8.0",
     "@fastify/secure-session": "^7.1.0",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^3.0.0",
+    "aws-sdk": "^2.1598.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",

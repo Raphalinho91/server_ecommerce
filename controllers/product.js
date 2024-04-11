@@ -1,4 +1,5 @@
 const productService = require("../services/product");
+const uploadS3Service = require("../services/upload");
 
 
 const getProducts = async (req, reply) => {
@@ -14,22 +15,30 @@ const getProducts = async (req, reply) => {
 
 
 const addProduct = async (req, reply) => {
-    // TO DO : faire que seul un admin puisse ajouter un produit
+    let code = 500;
+    const { fileName, filePath } = req.body;
+
     try {
-        const newProduct = await productService.createProduct(req.body);
+        const imgUrl = await uploadS3Service.uploadImageToS3(fileName, filePath);
+
+        if (!imgUrl) throw new Error('Fail to upload image');
+        const newProduct = await productService.createProduct({ ...req.body, imageUrl: imgUrl });
         return reply.status(201).send(newProduct);
-    } catch (e) {
-        console.error(e);
-        return reply.status(400).send({
-            message: e.message,
-            errorCode: 400
-        })
+
+    } catch (err) {
+        return reply.status(code).send({ message: err.message, errorCode: code });
     }
+
 }
+
+
+
 
 const getProduct = async (req, reply) => {
     const id = req.params.id;
     let code = 500;
+
+
     try {
         const product = await productService.getProductById(id);
         if (!product) {
@@ -51,7 +60,16 @@ const updateProduct = async (req, reply) => {
     // TO DO : faire que seul un admin  puisse mettre à jour un produit
     const id = req.params.id;
     let code = 400;
+    let imgUrl;
+    const { fileName, filePath } = req.body;
     try {
+        if (fileName && filePath) {
+            imgUrl = await uploadS3Service.uploadImageToS3(fileName, filePath);
+            if (!imgUrl) throw new Error("something went wrong  while trying to upload the image");
+            const product = await productService.updateProductById(id, { ...req.body, imageUrl: imgUrl });
+            return reply.status(200).send(product)
+
+        }
         const product = await productService.updateProductById(id, req.body);
         if (!product) {
             code = 404;

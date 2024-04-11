@@ -6,6 +6,22 @@ const userRoutes = require("./routes/user");
 const userGoogle = require("./routes/user.google");
 const { productRoutes } = require("./routes/product");
 
+
+
+fastify.register(require('@fastify/swagger'))
+
+fastify.register(require('@fastify/swagger-ui'), {
+  routePrefix: '/documentation',
+  theme: {
+    title: "E-commerce Ollosa Shop Api"
+  },
+  uiConfig: {
+    docExpansion: 'full',
+    deepLinking: false
+  },
+})
+
+
 fastify.register(secureSession, {
   secret: process.env.SECURE_SESSION,
   salt: process.env.SALT_SESSION,
