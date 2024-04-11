@@ -48,7 +48,7 @@ const getProduct = async (req, reply) => {
 }
 
 const updateProduct = async (req, reply) => {
-    // TO DO : faire que seul un mettre à jour puisse supprimer un produit
+    // TO DO : faire que seul un admin  puisse mettre à jour un produit
     const id = req.params.id;
     let code = 400;
     try {
