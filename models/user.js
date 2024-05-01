@@ -11,7 +11,12 @@ const userSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false },
   accountGoogle: { type: Boolean, default: false },
   phoneNumber: { type: String, sparse: true, default: null },
-  address: { type: String },
+  pays: { type: String },
+  province: { type: String },
+  ville: { type: String },
+  codePostale: { type: String },
+  adresse: { type: String },
+  adresseComplement: { type: String },
 });
 
 module.exports = mongoose.model("User", userSchema);

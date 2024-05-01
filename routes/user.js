@@ -7,6 +7,9 @@ const {
   deleteUserByToken,
   deleteUserById,
   getAllUsers,
+  getOneUser,
+  postInfoUser,
+  getUserGoogle,
 } = require("../controllers/user");
 const {
   UserHeaderSchema,
@@ -19,6 +22,10 @@ const {
   ResetPasswordResponseSchema,
   deleteUserResponseSchema,
   UsersResponseSchema,
+  UserHeaderResponseSchema,
+  LoginGoogleBodySchema,
+  LoginGoogleResponseSchema,
+  getOneUserResponseSchema,
 } = require("../schemas/user");
 
 function userRoutes(fastify, options, done) {
@@ -27,7 +34,7 @@ function userRoutes(fastify, options, done) {
     {
       schema: {
         headers: UserHeaderSchema,
-        response: UserResponseSchema,
+        response: UserHeaderResponseSchema,
       },
     },
     getUserByEmail
@@ -53,6 +60,17 @@ function userRoutes(fastify, options, done) {
       },
     },
     getUser
+  );
+
+  fastify.post(
+    "/login/google",
+    {
+      schema: {
+        body: LoginGoogleBodySchema,
+        response: LoginGoogleResponseSchema,
+      },
+    },
+    getUserGoogle
   );
 
   fastify.post(
@@ -95,6 +113,17 @@ function userRoutes(fastify, options, done) {
     },
     getAllUsers
   );
+
+  fastify.get(
+    "/one-user",
+    {
+      schema: {
+        response: getOneUserResponseSchema,
+      },
+    },
+    getOneUser
+  );
+  fastify.post("/one-user", postInfoUser);
 
   done();
 }
